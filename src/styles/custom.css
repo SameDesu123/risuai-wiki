@@ -1,0 +1,35 @@
+/* Accent: deep teal. Deliberately different from the official Risuai branding so the two are not confused. */
+:root {
+	--sl-color-accent-low: #0b2e2c;
+	--sl-color-accent: #14998c;
+	--sl-color-accent-high: #a8ede4;
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-low: #c9f2ec;
+	--sl-color-accent: #0f7a70;
+	--sl-color-accent-high: #0a3d38;
+}
+
+/* CBS reference: function headings in the code font, without link underlines. */
+.sl-markdown-content h3[id^='cbs-'] a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.sl-markdown-content h3[id^='cbs-'] code {
+	font-size: 1em;
+	padding: 0.1em 0.4em;
+}
+
+/* Space the functions apart a little so each entry stands on its own. */
+.sl-markdown-content h3[id^='cbs-'] {
+	margin-top: 2.5rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--sl-color-hairline);
+}
+
+/* Keep the first column of the overview table from wrapping. */
+.sl-markdown-content table td:first-child {
+	white-space: nowrap;
+}

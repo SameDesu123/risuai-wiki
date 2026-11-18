@@ -1,0 +1,47 @@
+---
+title: Welcome
+description: Unofficial, community-written documentation for Risuai, from installation to the CBS syntax and function reference.
+template: splash
+editUrl: false
+lastUpdated: false
+hero:
+  title: Risuai Unofficial Wiki
+  tagline: Community-maintained documentation for Risuai, from installation to CBS.
+  actions:
+    - text: Install
+      link: getting-started/install/
+      icon: right-arrow
+    - text: CBS reference
+      link: cbs/reference/
+      icon: open-book
+      variant: minimal
+---
+
+import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+<Aside type="caution" title="This is an unofficial wiki">
+This site is not run by the Risuai developers. Please report bugs and feature requests for Risuai itself on the [Risuai repository](https://github.com/kwaroran/Risuai/issues). If something on this wiki is wrong, you can fix it yourself with the **Edit page** link at the bottom of each page.
+</Aside>
+
+<CardGrid>
+	<LinkCard
+		title="Install"
+		description="Pick the setup that suits you (web, desktop app, Docker, or building from source) and learn how to back up your data."
+		href="getting-started/install/"
+	/>
+	<LinkCard
+		title="CBS basics"
+		description="How curly-brace syntax like {{char}} is evaluated, with examples of conditions, loops, and variables."
+		href="cbs/basics/"
+	/>
+	<LinkCard
+		title="CBS reference"
+		description="Every CBS function, grouped by category and generated from the Risuai source code."
+		href="cbs/reference/"
+	/>
+	<LinkCard
+		title="Contributing"
+		description="How to fix a page or write a new one."
+		href="contributing/"
+	/>
+</CardGrid>

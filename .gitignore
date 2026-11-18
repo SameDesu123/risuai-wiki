@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+.cache/
+
+# Generated from the Risuai source by pnpm generate
+src/content/docs/cbs/reference.md

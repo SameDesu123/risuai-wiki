@@ -1,0 +1,18 @@
+---
+// Adds "Checked against Risuai <version>" under the default title,
+// using the verifiedVersion value from the page frontmatter.
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+
+const version = Astro.locals.starlightRoute.entry.data.verifiedVersion;
+---
+
+<Default />
+{version && <p class="wiki-verified">{Astro.locals.t('wiki.verifiedVersion', { version })}</p>}
+
+<style>
+	.wiki-verified {
+		margin-top: 0.5rem;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+</style>
