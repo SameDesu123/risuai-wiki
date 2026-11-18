@@ -35,6 +35,15 @@ export default defineConfig({
                     items: [{ slug: 'cbs/basics' }, { slug: 'cbs/reference' }],
                 },
                 {
+                    label: 'Features',
+                    items: [
+                        { slug: 'features/lorebook' },
+                        { slug: 'features/regex-scripts' },
+                        { slug: 'features/modules' },
+                        { slug: 'features/character-cards' },
+                    ],
+                },
+                {
                     label: 'Contributing',
                     items: [{ slug: 'contributing' }],
                 },
