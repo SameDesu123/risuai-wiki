@@ -15,7 +15,7 @@ A module can contain:
 | Name, description, namespace, icon visibility, and custom toggles | **Basic Info** |
 | Lorebook entries | **Lorebook** |
 | Regex scripts and background embedding | **Regex Script** |
-| Trigger scripts | **Trigger Script** |
+| [Trigger scripts](/features/triggers/) | **Trigger Script** |
 | Named media, font, stylesheet, and other supported files | **Additional Assets** |
 
 You can leave sections empty. For example, a module can contain only a [lorebook](/features/lorebook/) or only [regex scripts](/features/regex-scripts/).
