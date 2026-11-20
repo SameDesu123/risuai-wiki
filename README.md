@@ -1,6 +1,6 @@
 # Risuai Unofficial Wiki
 
-A community-written, **unofficial** documentation site for [Risuai](https://github.com/kwaroran/Risuai). It has no affiliation with the Risuai developers, and its content may be wrong. Each page notes which Risuai version it was checked against (`verifiedVersion`).
+An unofficial documentation site for [Risuai](https://github.com/kwaroran/Risuai). It has no affiliation with the Risuai developers, and its content may be wrong. Each page notes which Risuai version it was checked against (`verifiedVersion`).
 
 Built with [Astro Starlight](https://starlight.astro.build/) and deployed to GitHub Pages.
 
