@@ -41,6 +41,7 @@ export default defineConfig({
                         { slug: 'features/regex-scripts' },
                         { slug: 'features/modules' },
                         { slug: 'features/character-cards' },
+                        { slug: 'features/assets' },
                         { slug: 'features/personas' },
                         { slug: 'features/group-chats' },
                         { slug: 'features/prompt-template' },
