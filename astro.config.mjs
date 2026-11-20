@@ -42,6 +42,7 @@ export default defineConfig({
                         { slug: 'features/modules' },
                         { slug: 'features/character-cards' },
                         { slug: 'features/personas' },
+                        { slug: 'features/group-chats' },
                         { slug: 'features/prompt-template' },
                         { slug: 'features/triggers' },
                         { slug: 'features/lua' },
