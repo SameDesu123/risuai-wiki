@@ -1,30 +1,35 @@
 ---
 // Adds a button before the site title that hides or shows the whole left sidebar
 // on wide screens (where Starlight always shows it). Narrow screens keep the
-// default menu button. The choice is saved in localStorage.
+// default menu button. The choice is saved in localStorage. Until the reader
+// chooses, the sidebar starts collapsed below `wideQuery` (tablet widths) and
+// follows the screen width, for example when an iPad is rotated.
 import Default from '@astrojs/starlight/components/Header.astro';
 
 const { hasSidebar } = Astro.locals.starlightRoute;
 const label = Astro.locals.t('wiki.toggleSidebar');
+const wideQuery = '(min-width: 75rem)';
 ---
 
 <div class="wiki-header">
 	{
 		hasSidebar && (
 			<>
-				<script is:inline>
+				<script is:inline define:vars={{ wideQuery }}>
 					// Runs before the sidebar is parsed, so a collapsed sidebar never flashes open.
+					let saved = null;
 					try {
-						if (localStorage.getItem('wiki:sidebar-collapsed') === '1') {
-							document.documentElement.setAttribute('data-sidebar-collapsed', '');
-						}
+						saved = localStorage.getItem('wiki:sidebar-collapsed');
 					} catch {}
+					const collapsed = saved === null ? !matchMedia(wideQuery).matches : saved === '1';
+					document.documentElement.toggleAttribute('data-sidebar-collapsed', collapsed);
 				</script>
 				<button
 					type="button"
 					class="wiki-sidebar-toggle sl-hidden md:sl-flex print:hidden"
 					aria-controls="starlight__sidebar"
 					aria-expanded="true"
+					data-wide-query={wideQuery}
 					aria-label={label}
 					title={label}
 				>
@@ -44,6 +49,14 @@ const label = Astro.locals.t('wiki.toggleSidebar');
 	const sync = (button: HTMLButtonElement) =>
 		button.setAttribute('aria-expanded', String(!root.hasAttribute('data-sidebar-collapsed')));
 
+	const hasSavedChoice = () => {
+		try {
+			return localStorage.getItem('wiki:sidebar-collapsed') !== null;
+		} catch {
+			return false;
+		}
+	};
+
 	document.querySelectorAll<HTMLButtonElement>('.wiki-sidebar-toggle').forEach((button) => {
 		sync(button);
 		button.addEventListener('click', () => {
@@ -51,6 +64,14 @@ const label = Astro.locals.t('wiki.toggleSidebar');
 			try {
 				localStorage.setItem('wiki:sidebar-collapsed', collapsed ? '1' : '0');
 			} catch {}
+			sync(button);
+		});
+
+		// Without a saved choice, follow the screen width when it changes.
+		const wide = matchMedia(button.dataset.wideQuery!);
+		wide.addEventListener('change', () => {
+			if (hasSavedChoice()) return;
+			root.toggleAttribute('data-sidebar-collapsed', !wide.matches);
 			sync(button);
 		});
 	});
