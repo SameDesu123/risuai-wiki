@@ -100,6 +100,8 @@ The block picker groups actions by purpose:
 
 Select **Lua** at the top of **Trigger Script** to replace the visual editor with a code field. Risuai calls Lua functions for the corresponding events: `onInput` for submitted input, `onOutput` for a character response, and `onStart` during request preparation.
 
+See [Lua scripting](/features/lua/) for the full function list, event arguments, and examples.
+
 This sets a chat variable each time `onStart` runs:
 
 ```lua

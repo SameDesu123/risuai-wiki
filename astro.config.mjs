@@ -43,6 +43,7 @@ export default defineConfig({
                         { slug: 'features/character-cards' },
                         { slug: 'features/prompt-template' },
                         { slug: 'features/triggers' },
+                        { slug: 'features/lua' },
                         { slug: 'features/memory' },
                         { slug: 'features/plugins' },
                     ],
