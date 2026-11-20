@@ -19,6 +19,7 @@ export const collections = {
             extend: z.object({
                 'wiki.verifiedVersion': z.string().optional(),
                 'wiki.disclaimer': z.string().optional(),
+                'wiki.toggleSidebar': z.string().optional(),
             }),
         }),
     }),

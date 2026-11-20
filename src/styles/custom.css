@@ -33,3 +33,19 @@
 .sl-markdown-content table td:first-child {
 	white-space: nowrap;
 }
+
+/* Collapsible sidebar (see src/components/Header.astro). Only wide screens show the sidebar inline. */
+@media (min-width: 50rem) {
+	:root[data-sidebar-collapsed] {
+		--sl-content-inline-start: 0rem;
+	}
+
+	:root[data-sidebar-collapsed] .sidebar-pane {
+		display: none;
+	}
+
+	/* Centre the text in the freed space; Starlight otherwise keeps it at the left, or beside the table of contents. */
+	:root[data-sidebar-collapsed] .main-pane .sl-container {
+		margin-inline: auto;
+	}
+}

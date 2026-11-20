@@ -1,0 +1,91 @@
+---
+// Adds a button before the site title that hides or shows the whole left sidebar
+// on wide screens (where Starlight always shows it). Narrow screens keep the
+// default menu button. The choice is saved in localStorage.
+import Default from '@astrojs/starlight/components/Header.astro';
+
+const { hasSidebar } = Astro.locals.starlightRoute;
+const label = Astro.locals.t('wiki.toggleSidebar');
+---
+
+<div class="wiki-header">
+	{
+		hasSidebar && (
+			<>
+				<script is:inline>
+					// Runs before the sidebar is parsed, so a collapsed sidebar never flashes open.
+					try {
+						if (localStorage.getItem('wiki:sidebar-collapsed') === '1') {
+							document.documentElement.setAttribute('data-sidebar-collapsed', '');
+						}
+					} catch {}
+				</script>
+				<button
+					type="button"
+					class="wiki-sidebar-toggle sl-hidden md:sl-flex print:hidden"
+					aria-controls="starlight__sidebar"
+					aria-expanded="true"
+					aria-label={label}
+					title={label}
+				>
+					<svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<rect x="3" y="4" width="18" height="16" rx="2" />
+						<path d="M9 4v16" />
+					</svg>
+				</button>
+			</>
+		)
+	}
+	<div class="wiki-header-default"><Default /></div>
+</div>
+
+<script>
+	const root = document.documentElement;
+	const sync = (button: HTMLButtonElement) =>
+		button.setAttribute('aria-expanded', String(!root.hasAttribute('data-sidebar-collapsed')));
+
+	document.querySelectorAll<HTMLButtonElement>('.wiki-sidebar-toggle').forEach((button) => {
+		sync(button);
+		button.addEventListener('click', () => {
+			const collapsed = root.toggleAttribute('data-sidebar-collapsed');
+			try {
+				localStorage.setItem('wiki:sidebar-collapsed', collapsed ? '1' : '0');
+			} catch {}
+			sync(button);
+		});
+	});
+</script>
+
+<style>
+	.wiki-header {
+		display: flex;
+		align-items: center;
+		gap: var(--sl-nav-gap);
+		height: 100%;
+	}
+
+	.wiki-header-default {
+		flex: 1;
+		min-width: 0;
+		height: 100%;
+	}
+
+	.wiki-sidebar-toggle {
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 2.25rem;
+		height: 2.25rem;
+		padding: 0;
+		border: 1px solid var(--sl-color-hairline-shade);
+		border-radius: 0.5rem;
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		cursor: pointer;
+	}
+
+	.wiki-sidebar-toggle:hover {
+		color: var(--sl-color-white);
+		background-color: var(--sl-color-gray-6);
+	}
+</style>
