@@ -1,9 +1,15 @@
 ---
-// Adds a button before the site title that hides or shows the whole left sidebar
-// on wide screens (where Starlight always shows it). Narrow screens keep the
-// default menu button. The choice is saved in localStorage. Until the reader
-// chooses, the sidebar starts collapsed below `wideQuery` (tablet widths) and
-// follows the screen width, for example when an iPad is rotated.
+// Adds a button before the site title that shows or hides the left sidebar on
+// screens where Starlight would otherwise always show it (50rem and wider).
+// Narrow screens keep Starlight's own menu button.
+//
+// - Below `wideQuery` (tablet widths) the sidebar is hidden and the button opens
+//   it as an overlay above the text. Clicking outside it, pressing Escape, or
+//   going to another page closes it. This state is not saved.
+// - At `wideQuery` and wider the sidebar sits beside the text. The button
+//   collapses it, and the choice is saved in localStorage.
+//
+// The CSS for both modes is in src/styles/custom.css; keep its breakpoints in sync.
 import Default from '@astrojs/starlight/components/Header.astro';
 
 const { hasSidebar } = Astro.locals.starlightRoute;
@@ -15,23 +21,22 @@ const wideQuery = '(min-width: 75rem)';
 	{
 		hasSidebar && (
 			<>
-				<script is:inline define:vars={{ wideQuery }}>
+				<script is:inline>
 					// Runs before the sidebar is parsed, so a collapsed sidebar never flashes open.
-					let saved = null;
 					try {
-						saved = localStorage.getItem('wiki:sidebar-collapsed');
+						if (localStorage.getItem('wiki:sidebar-collapsed') === '1') {
+							document.documentElement.setAttribute('data-sidebar-collapsed', '');
+						}
 					} catch {}
-					const collapsed = saved === null ? !matchMedia(wideQuery).matches : saved === '1';
-					document.documentElement.toggleAttribute('data-sidebar-collapsed', collapsed);
 				</script>
 				<button
 					type="button"
 					class="wiki-sidebar-toggle sl-hidden md:sl-flex print:hidden"
 					aria-controls="starlight__sidebar"
-					aria-expanded="true"
-					data-wide-query={wideQuery}
+					aria-expanded="false"
 					aria-label={label}
 					title={label}
+					data-wide-query={wideQuery}
 				>
 					<svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 						<rect x="3" y="4" width="18" height="16" rx="2" />
@@ -46,34 +51,49 @@ const wideQuery = '(min-width: 75rem)';
 
 <script>
 	const root = document.documentElement;
-	const sync = (button: HTMLButtonElement) =>
-		button.setAttribute('aria-expanded', String(!root.hasAttribute('data-sidebar-collapsed')));
-
-	const hasSavedChoice = () => {
-		try {
-			return localStorage.getItem('wiki:sidebar-collapsed') !== null;
-		} catch {
-			return false;
-		}
-	};
+	const COLLAPSED = 'data-sidebar-collapsed';
+	const OVERLAY_OPEN = 'data-sidebar-overlay-open';
 
 	document.querySelectorAll<HTMLButtonElement>('.wiki-sidebar-toggle').forEach((button) => {
-		sync(button);
+		const wide = matchMedia(button.dataset.wideQuery!);
+		const pane = document.getElementById('starlight__sidebar');
+
+		const sync = () => {
+			const open = wide.matches ? !root.hasAttribute(COLLAPSED) : root.hasAttribute(OVERLAY_OPEN);
+			button.setAttribute('aria-expanded', String(open));
+		};
+		const closeOverlay = () => {
+			root.removeAttribute(OVERLAY_OPEN);
+			sync();
+		};
+
 		button.addEventListener('click', () => {
-			const collapsed = root.toggleAttribute('data-sidebar-collapsed');
-			try {
-				localStorage.setItem('wiki:sidebar-collapsed', collapsed ? '1' : '0');
-			} catch {}
-			sync(button);
+			if (wide.matches) {
+				const collapsed = root.toggleAttribute(COLLAPSED);
+				try {
+					localStorage.setItem('wiki:sidebar-collapsed', collapsed ? '1' : '0');
+				} catch {}
+			} else {
+				root.toggleAttribute(OVERLAY_OPEN);
+			}
+			sync();
 		});
 
-		// Without a saved choice, follow the screen width when it changes.
-		const wide = matchMedia(button.dataset.wideQuery!);
-		wide.addEventListener('change', () => {
-			if (hasSavedChoice()) return;
-			root.toggleAttribute('data-sidebar-collapsed', !wide.matches);
-			sync(button);
+		// Close the overlay on a click outside it or on Escape.
+		document.addEventListener('click', (event) => {
+			if (!root.hasAttribute(OVERLAY_OPEN)) return;
+			const target = event.target as Node;
+			if (button.contains(target) || pane?.contains(target)) return;
+			closeOverlay();
 		});
+		document.addEventListener('keydown', (event) => {
+			if (event.key !== 'Escape' || !root.hasAttribute(OVERLAY_OPEN)) return;
+			closeOverlay();
+			button.focus();
+		});
+
+		wide.addEventListener('change', closeOverlay);
+		sync();
 	});
 </script>
 
@@ -105,8 +125,12 @@ const wideQuery = '(min-width: 75rem)';
 		cursor: pointer;
 	}
 
-	.wiki-sidebar-toggle:hover {
+	.wiki-sidebar-toggle:hover,
+	.wiki-sidebar-toggle[aria-expanded='true'] {
 		color: var(--sl-color-white);
+	}
+
+	.wiki-sidebar-toggle:hover {
 		background-color: var(--sl-color-gray-6);
 	}
 </style>

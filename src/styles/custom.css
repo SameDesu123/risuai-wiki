@@ -34,8 +34,40 @@
 	white-space: nowrap;
 }
 
-/* Collapsible sidebar (see src/components/Header.astro). Only wide screens show the sidebar inline. */
-@media (min-width: 50rem) {
+/* Sidebar toggle (see src/components/Header.astro).
+   Below 50rem Starlight's own full-screen menu is used and nothing here applies.
+   50rem to 75rem: the sidebar is hidden and opens as an overlay above the text.
+   75rem and wider: the sidebar sits beside the text and can be collapsed. */
+@media (min-width: 50rem) and (max-width: 74.99rem) {
+	:root[data-has-sidebar] {
+		--sl-content-inline-start: 0rem;
+	}
+
+	.sidebar-pane {
+		display: none;
+	}
+
+	:root[data-sidebar-overlay-open] .sidebar-pane {
+		display: block;
+		z-index: calc(var(--sl-z-index-menu) + 1);
+		box-shadow: var(--sl-shadow-lg);
+	}
+
+	/* Dims the page behind the open overlay; the header stays above it so the toggle can close it. */
+	:root[data-sidebar-overlay-open] .main-frame::after {
+		content: '';
+		position: fixed;
+		inset: 0;
+		z-index: var(--sl-z-index-menu);
+		background-color: rgb(0 0 0 / 0.45);
+	}
+
+	.main-pane .sl-container {
+		margin-inline: auto;
+	}
+}
+
+@media (min-width: 75rem) {
 	:root[data-sidebar-collapsed] {
 		--sl-content-inline-start: 0rem;
 	}
@@ -44,7 +76,7 @@
 		display: none;
 	}
 
-	/* Centre the text in the freed space; Starlight otherwise keeps it at the left, or beside the table of contents. */
+	/* Centre the text in the freed space; Starlight otherwise keeps it beside the table of contents. */
 	:root[data-sidebar-collapsed] .main-pane .sl-container {
 		margin-inline: auto;
 	}
