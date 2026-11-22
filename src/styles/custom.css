@@ -107,6 +107,20 @@
 	text-decoration-thickness: 2px;
 }
 
+/* Header: the search box sits in the middle, with the site title and the right-hand items in equal
+   columns on either side (Starlight lines it up with the text column instead). Each side column is
+   at least as wide as its contents, so on narrow screens the search box gives up space and drifts
+   off-centre rather than covering the title. Below 50rem Starlight shows a search icon instead. */
+@media (min-width: 50rem) {
+	.header > .header {
+		grid-template-columns: minmax(max-content, 1fr) minmax(0, 22rem) minmax(max-content, 1fr);
+	}
+
+	.header > .header > .right-group {
+		justify-self: end;
+	}
+}
+
 /* Home page (the only page with a hero). */
 :root[data-has-hero] .hero h1 {
 	font-weight: 700;

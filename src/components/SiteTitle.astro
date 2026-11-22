@@ -1,0 +1,27 @@
+---
+// Starlight's site title, with the sidebar button (SidebarToggle.astro) in front of it. Keeping the
+// button inside the title's column lets custom.css centre the search box in the header.
+// On pages with a table of contents, Starlight shows an "On this page" bar below 72rem, and the
+// button sits in that bar instead (MobileTableOfContents.astro), so this copy only appears from 72rem.
+import Default from '@astrojs/starlight/components/SiteTitle.astro';
+import SidebarToggle from './SidebarToggle.astro';
+
+const { hasSidebar, toc } = Astro.locals.starlightRoute;
+---
+
+{
+	hasSidebar && (
+		<>
+			<script is:inline>
+				// Runs before the sidebar is parsed, so a collapsed sidebar never flashes open.
+				try {
+					if (localStorage.getItem('wiki:sidebar-collapsed') === '1') {
+						document.documentElement.setAttribute('data-sidebar-collapsed', '');
+					}
+				} catch {}
+			</script>
+			<SidebarToggle placement="header" class={toc ? 'sl-hidden lg:sl-flex' : 'sl-hidden md:sl-flex'} />
+		</>
+	)
+}
+<Default />

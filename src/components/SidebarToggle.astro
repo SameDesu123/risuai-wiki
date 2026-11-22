@@ -5,7 +5,7 @@
 // It is placed in two spots, and CSS shows one at a time:
 // - `placement="toc"`: at the start of the "On this page" bar that Starlight shows below 72rem
 //   (see MobileTableOfContents.astro). Used from 50rem to 72rem on pages with that bar.
-// - `placement="header"`: before the site title (see Header.astro). Used everywhere else.
+// - `placement="header"`: before the site title (see SiteTitle.astro). Used everywhere else.
 // The script below drives every copy, so they always agree.
 //
 // - Below `wideQuery` (tablet widths) the sidebar is hidden and the button opens it as an
@@ -134,8 +134,10 @@ const wideQuery = '(min-width: 75rem)';
 	}
 
 	[data-placement='header'] {
+		align-self: center;
 		width: 2.25rem;
 		height: 2.25rem;
+		margin-inline-end: var(--sl-nav-gap);
 	}
 
 	[data-placement='header']:hover {

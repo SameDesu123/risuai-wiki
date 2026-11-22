@@ -24,9 +24,9 @@ export default defineConfig({
             lastUpdated: true,
             customCss: ['./src/styles/custom.css'],
             components: {
-                Header: './src/components/Header.astro',
                 MobileTableOfContents: './src/components/MobileTableOfContents.astro',
                 PageTitle: './src/components/PageTitle.astro',
+                SiteTitle: './src/components/SiteTitle.astro',
                 Footer: './src/components/Footer.astro',
             },
             sidebar: [
