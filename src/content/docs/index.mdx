@@ -7,6 +7,18 @@ lastUpdated: false
 hero:
   title: Risuai Unofficial Wiki
   tagline: Community-maintained documentation for Risuai, from installation to CBS.
+  # A decorative CBS example; its styles are in src/styles/custom.css (.wiki-cbs).
+  image:
+    html: |
+      <figure class="wiki-cbs" aria-hidden="true">
+        <div class="wiki-cbs-bar"><span class="wiki-cbs-tab">Lorebook entry</span><span class="wiki-cbs-pill">CBS</span></div>
+        <pre class="wiki-cbs-code"><code><span class="p">{{</span><span class="f">#when</span><span class="p">::{{</span><span class="f">getvar</span><span class="p">::</span><span class="a">hp</span><span class="p">}}::</span><span class="o">&lt;=</span><span class="p">::</span><span class="a">0</span><span class="p">}}</span>
+      <span class="p">{{</span><span class="f">char</span><span class="p">}}</span> collapses.
+      <span class="p">{{</span><span class="f">:else</span><span class="p">}}</span>
+      <span class="p">{{</span><span class="f">char</span><span class="p">}}</span> can still hold on.
+      <span class="p">{{</span><span class="f">/when</span><span class="p">}}</span></code></pre>
+        <div class="wiki-cbs-out"><span class="wiki-cbs-label">Result when hp is 12</span>Risu can still hold on.</div>
+      </figure>
   actions:
     - text: Install
       link: getting-started/install/
@@ -17,36 +29,30 @@ hero:
       variant: minimal
 ---
 
-import { Aside, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
+import HomeCard from '../../components/home/HomeCard.astro';
+import HomeFeatures from '../../components/home/HomeFeatures.astro';
+import HomeGrid from '../../components/home/HomeGrid.astro';
 
 <Aside type="caution" title="This is an unofficial wiki">
 This site is not run by the Risuai developers. For bugs or feature requests in Risuai itself, please open an issue on the [Risuai repository](https://github.com/kwaroran/Risuai/issues). If you find a mistake on this wiki, you can suggest a fix using the **Edit page** link at the bottom of each page.
 </Aside>
 
-<CardGrid>
-	<LinkCard
-		title="Install"
-		description="Pick the setup that suits you (web, desktop app, Docker, or building from source) and learn how to back up your data."
-		href="getting-started/install/"
-	/>
-	<LinkCard
-		title="CBS basics"
-		description="How curly-brace syntax like {{char}} is evaluated, with examples of conditions, loops, and variables."
-		href="cbs/basics/"
-	/>
-	<LinkCard
-		title="CBS reference"
-		description="Every CBS function, grouped by category and generated from the Risuai source code."
-		href="cbs/reference/"
-	/>
-	<LinkCard
-		title="Features"
-		description="Use lorebooks, scripts, modules, character cards, prompt templates, memory, and plugins."
-		href="features/lorebook/"
-	/>
-	<LinkCard
-		title="Contributing"
-		description="How to fix a page or write a new one."
-		href="contributing/"
-	/>
-</CardGrid>
+<HomeGrid>
+	<HomeCard title="Install" href="getting-started/install/" icon="rocket" tone="mint">
+		Pick the setup that suits you (web, desktop app, Docker, or building from source) and learn how to back up your data.
+	</HomeCard>
+	<HomeCard title="CBS basics" href="cbs/basics/" icon="pencil" tone="violet">
+		How curly-brace syntax like `{{char}}` is evaluated, with examples of conditions, loops, and variables.
+	</HomeCard>
+	<HomeCard title="CBS reference" href="cbs/reference/" icon="open-book" tone="coral">
+		Every CBS function, grouped by category and generated from the Risuai source code.
+	</HomeCard>
+	<HomeCard title="Contributing" href="contributing/" icon="heart" tone="mint">
+		How to fix a page or write a new one.
+	</HomeCard>
+</HomeGrid>
+
+<HomeFeatures title="Features" group="Features" icon="puzzle">
+	Lorebooks, scripts, modules, character cards, prompt templates, memory, plugins, and more.
+</HomeFeatures>

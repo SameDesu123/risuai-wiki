@@ -1,14 +1,207 @@
-/* Accent: deep teal. Deliberately different from the official Risuai branding so the two are not confused. */
-:root {
-	--sl-color-accent-low: #0b2e2c;
-	--sl-color-accent: #14998c;
-	--sl-color-accent-high: #a8ede4;
+/* Palette: mint as the accent over grays tinted toward navy, with violet and coral as solid
+   highlight colors (CBS syntax colors, home page card icons). No gradients or glows: color comes
+   from flat fills and borders only. Deliberately different from the official Risuai branding so
+   the two are not confused.
+   Every text color here meets 4.5:1 against the backgrounds it is used on (body, muted, links,
+   highlight colors), in both themes. Check again if you change a value. */
+:root,
+::backdrop {
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #eef1fb;
+	--sl-color-gray-2: #cdd3ea;
+	--sl-color-gray-3: #8b94b8;
+	--sl-color-gray-4: #4f5878;
+	--sl-color-gray-5: #262d45;
+	--sl-color-gray-6: #151a2c;
+	--sl-color-black: #0e1220;
+
+	--sl-color-accent-low: #0d3b38;
+	--sl-color-accent: #2dd4bf;
+	--sl-color-accent-high: #99f6e4;
+
+	--sl-color-backdrop-overlay: rgb(8 10 20 / 0.72);
+
+	/* Highlight colors. */
+	--wiki-mint: #2dd4bf;
+	--wiki-violet: #a78bfa;
+	--wiki-coral: #ff8f75;
 }
 
-:root[data-theme='light'] {
-	--sl-color-accent-low: #c9f2ec;
-	--sl-color-accent: #0f7a70;
-	--sl-color-accent-high: #0a3d38;
+:root[data-theme='light'],
+[data-theme='light'] ::backdrop {
+	--sl-color-white: #121526;
+	--sl-color-gray-1: #1c2038;
+	--sl-color-gray-2: #2f3552;
+	--sl-color-gray-3: #525a78;
+	--sl-color-gray-4: #8d95b0;
+	--sl-color-gray-5: #c9d0e3;
+	--sl-color-gray-6: #e8ecf6;
+	--sl-color-gray-7: #f4f6fb;
+	--sl-color-black: #ffffff;
+
+	--sl-color-accent-low: #cdf5ee;
+	--sl-color-accent: #0b7a70;
+	--sl-color-accent-high: #064c45;
+
+	--sl-color-backdrop-overlay: rgb(40 46 74 / 0.5);
+
+	--wiki-mint: #0b7a70;
+	--wiki-violet: #6d28d9;
+	--wiki-coral: #c2410c;
+}
+
+::selection {
+	background-color: color-mix(in oklab, var(--sl-color-accent) 30%, transparent);
+}
+
+/* Sidebar: the current page gets a soft tinted row with an accent bar instead of a solid block. */
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover,
+.sidebar-content a[aria-current='page']:focus {
+	color: var(--sl-color-white);
+	background-color: color-mix(in oklab, var(--sl-color-accent) 16%, transparent);
+	box-shadow: inset 3px 0 0 var(--sl-color-accent);
+}
+
+:root[dir='rtl'] .sidebar-content a[aria-current='page'] {
+	box-shadow: inset -3px 0 0 var(--sl-color-accent);
+}
+
+/* Forced-colors mode drops box-shadow and author backgrounds, so mark the current page another way. */
+@media (forced-colors: active) {
+	.sidebar-content a[aria-current='page'] {
+		outline: 2px solid Highlight;
+		outline-offset: -2px;
+	}
+}
+
+/* Markdown: tinted table headers, inline code, and quotes so pages read less flat. */
+.sl-markdown-content th:not(:where(.not-content *)) {
+	color: var(--sl-color-white);
+	border-bottom: 2px solid color-mix(in oklab, var(--sl-color-accent) 45%, var(--sl-color-gray-5));
+}
+
+.sl-markdown-content :not(pre) > code:not(:where(.not-content *)) {
+	background-color: color-mix(in oklab, var(--wiki-violet) 12%, var(--sl-color-bg-inline-code));
+	border-radius: 0.3em;
+}
+
+/* Light mode mixes toward white instead of gray-6: on the gray-6 mix, accent-colored code inside
+   links fell to 3.7:1. The hairline keeps the paler fill visible against the page. */
+:root[data-theme='light'] .sl-markdown-content :not(pre) > code:not(:where(.not-content *)) {
+	background-color: color-mix(in oklab, var(--wiki-violet) 6%, var(--sl-color-black));
+	box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--wiki-violet) 14%, var(--sl-color-gray-6));
+}
+
+.sl-markdown-content blockquote:not(:where(.not-content *)) {
+	border-inline-start: 3px solid var(--sl-color-gray-4);
+	padding-block: 0.25rem;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)) {
+	text-decoration-color: color-mix(in oklab, var(--sl-color-text-accent) 45%, transparent);
+	text-underline-offset: 0.2em;
+}
+
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+	text-decoration-color: currentColor;
+	text-decoration-thickness: 2px;
+}
+
+/* Home page (the only page with a hero). */
+:root[data-has-hero] .hero h1 {
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+/* The CBS example beside the hero text (markup in src/content/docs/index.mdx).
+   Kept below the text on narrow screens so the title comes first. */
+:root[data-has-hero] .hero > .hero-html {
+	order: 2;
+	width: min(100%, 26rem);
+}
+
+.wiki-cbs {
+	width: 100%;
+	margin: 0;
+	overflow: hidden;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.75rem;
+	background-color: var(--sl-color-gray-6);
+	text-align: start;
+}
+
+/* Light mode uses the lighter gray so the coral and mint syntax colors keep 4.5:1. */
+:root[data-theme='light'] .wiki-cbs {
+	background-color: var(--sl-color-gray-7);
+}
+
+.wiki-cbs-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.625rem 1rem;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-xs);
+}
+
+.wiki-cbs-pill {
+	padding: 0.1rem 0.6rem;
+	border-radius: 999rem;
+	background-color: color-mix(in oklab, var(--wiki-mint) 18%, transparent);
+	/* accent-high in both themes: the plain light accent is only 3.8:1 on this tint. */
+	color: var(--sl-color-accent-high);
+	font-weight: 700;
+	letter-spacing: 0.04em;
+}
+
+.wiki-cbs-code {
+	margin: 0;
+	padding: 1rem;
+	overflow-x: auto;
+	background: none;
+	color: var(--sl-color-gray-2);
+	font-family: var(--__sl-font-mono);
+	font-size: var(--sl-text-code-sm);
+	line-height: 1.8;
+}
+
+.wiki-cbs-code .p {
+	color: var(--sl-color-gray-3);
+}
+
+.wiki-cbs-code .f {
+	color: var(--wiki-mint);
+	font-weight: 600;
+}
+
+.wiki-cbs-code .a {
+	color: var(--wiki-coral);
+}
+
+.wiki-cbs-code .o {
+	color: var(--wiki-violet);
+	font-weight: 600;
+}
+
+.wiki-cbs-out {
+	display: grid;
+	gap: 0.125rem;
+	padding: 0.75rem 1rem;
+	border-top: 1px dashed var(--sl-color-gray-5);
+	background-color: color-mix(in oklab, var(--wiki-mint) 8%, transparent);
+	color: var(--sl-color-white);
+	font-size: var(--sl-text-sm);
+}
+
+.wiki-cbs-label {
+	color: var(--sl-color-gray-3);
+	font-size: var(--sl-text-2xs);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
 }
 
 /* CBS reference: function headings in the code font, without link underlines. */

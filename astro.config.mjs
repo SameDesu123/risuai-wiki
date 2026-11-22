@@ -17,6 +17,8 @@ export default defineConfig({
             title: 'Risuai Unofficial Wiki',
             description: 'Unofficial, community-written documentation for Risuai.',
             favicon: '/favicon.svg',
+            // Same artwork as public/favicon.svg; keep the two in sync.
+            logo: { src: './src/assets/logo.svg' },
             social: [{ icon: 'github', label: 'GitHub', href: `https://github.com/${GITHUB_REPO}` }],
             editLink: { baseUrl: `https://github.com/${GITHUB_REPO}/edit/main/` },
             lastUpdated: true,

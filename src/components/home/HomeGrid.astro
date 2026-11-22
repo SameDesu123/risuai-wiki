@@ -1,0 +1,27 @@
+---
+// Lays out the home page cards: one column on phones, two on tablets, four on wide screens.
+// Built for four HomeCards, so no row is left with a gap at any width.
+---
+
+<div class="home-grid not-content"><slot /></div>
+
+<style>
+	.home-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1rem;
+		margin-block: 2rem 1rem;
+	}
+
+	@media (min-width: 36rem) {
+		.home-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media (min-width: 64rem) {
+		.home-grid {
+			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+</style>

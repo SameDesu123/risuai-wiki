@@ -1,0 +1,124 @@
+---
+// A wide panel for the home page that lists every page in one sidebar group as chips.
+// The links come from the sidebar config in astro.config.mjs, so new pages show up here
+// without editing the home page.
+import { Icon } from '@astrojs/starlight/components';
+import type { StarlightIcon } from '@astrojs/starlight/types';
+
+interface Props {
+	title: string;
+	/** The label of the sidebar group to list, as written in astro.config.mjs. */
+	group: string;
+	icon: StarlightIcon;
+}
+
+const { title, group, icon } = Astro.props;
+const { sidebar } = Astro.locals.starlightRoute;
+
+const found = sidebar.find((entry) => entry.type === 'group' && entry.label === group);
+const links = found?.type === 'group' ? found.entries.filter((entry) => entry.type === 'link') : [];
+
+if (links.length === 0) {
+	throw new Error(`HomeFeatures: no links found in the sidebar group "${group}".`);
+}
+---
+
+<section class="home-features not-content" aria-labelledby="home-features-title">
+	<div class="home-features-head">
+		<span class="home-features-icon"><Icon name={icon} size="1.5rem" /></span>
+		<div>
+			<h2 id="home-features-title" class="home-features-title">{title}</h2>
+			<div class="home-features-body"><slot /></div>
+		</div>
+	</div>
+	<ul class="home-features-list" role="list">
+		{
+			links.map((link) => (
+				<li>
+					<a href={link.href}>{link.label}</a>
+				</li>
+			))
+		}
+	</ul>
+</section>
+
+<style>
+	.home-features {
+		position: relative;
+		display: grid;
+		gap: 1.25rem;
+		padding: 1.5rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.75rem;
+		/* A shade off the page background: gray-7 in light mode, gray-6 in dark mode (no gray-7). */
+		background-color: var(--sl-color-gray-7, var(--sl-color-gray-6));
+	}
+
+	.home-features-head {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+	}
+
+	.home-features-icon {
+		display: inline-flex;
+		flex-shrink: 0;
+		color: var(--wiki-mint);
+	}
+
+	.home-features-title {
+		margin: 0;
+		font-size: var(--sl-text-xl);
+		font-weight: 700;
+		line-height: var(--sl-line-height-headings);
+		color: var(--sl-color-white);
+	}
+
+	.home-features-body {
+		margin-block-start: 0.375rem;
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-sm);
+		line-height: 1.6;
+	}
+
+	/* MDX wraps the description in a <p>; the panel already spaces it. */
+	.home-features-body :global(p) {
+		margin: 0;
+	}
+
+	.home-features-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.home-features-list a {
+		display: inline-block;
+		padding: 0.4rem 0.9rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 999rem;
+		background-color: var(--sl-color-black);
+		color: var(--sl-color-gray-2);
+		font-size: var(--sl-text-sm);
+		font-weight: 500;
+		text-decoration: none;
+		transition:
+			color 150ms ease-out,
+			border-color 150ms ease-out,
+			background-color 150ms ease-out;
+	}
+
+	.home-features-list a:hover {
+		color: var(--sl-color-white);
+		border-color: var(--sl-color-accent);
+		background-color: color-mix(in oklab, var(--sl-color-accent) 16%, transparent);
+	}
+
+	.home-features-list a:focus-visible {
+		outline: 2px solid var(--sl-color-text-accent);
+		outline-offset: 2px;
+	}
+</style>

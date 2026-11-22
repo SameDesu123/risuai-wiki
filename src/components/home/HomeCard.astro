@@ -1,0 +1,126 @@
+---
+// A large link card for the home page. The whole card is clickable, but only the title is the
+// link, so screen readers announce a short name instead of the whole description.
+// Use relative hrefs (like 'cbs/basics/'), the same as LinkCard, so the base path keeps working.
+import { Icon } from '@astrojs/starlight/components';
+import type { StarlightIcon } from '@astrojs/starlight/types';
+
+interface Props {
+	title: string;
+	href: string;
+	icon: StarlightIcon;
+	/** Which palette color tints the card: see the --wiki-* colors in src/styles/custom.css. */
+	tone?: 'mint' | 'violet' | 'coral';
+}
+
+const { title, href, icon, tone = 'mint' } = Astro.props;
+---
+
+<article class="home-card" data-tone={tone}>
+	<span class="home-card-icon"><Icon name={icon} size="1.5rem" /></span>
+	<h2 class="home-card-title"><a href={href}>{title}</a></h2>
+	<div class="home-card-body"><slot /></div>
+	<Icon name="right-arrow" size="1.25rem" class="home-card-arrow rtl:flip" />
+</article>
+
+<style>
+	.home-card {
+		--tone: var(--wiki-mint);
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding: 1.25rem 1.5rem 1.5rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.75rem;
+		background-color: var(--sl-color-black);
+		transition:
+			border-color 150ms ease-out,
+			background-color 150ms ease-out;
+	}
+
+	.home-card[data-tone='violet'] {
+		--tone: var(--wiki-violet);
+	}
+
+	.home-card[data-tone='coral'] {
+		--tone: var(--wiki-coral);
+	}
+
+	.home-card:hover {
+		border-color: var(--tone);
+		background-color: color-mix(in oklab, var(--tone) 6%, var(--sl-color-black));
+	}
+
+	/* The link is the title, so draw the keyboard focus ring around the whole card. */
+	.home-card:has(a:focus-visible) {
+		outline: 2px solid var(--sl-color-text-accent);
+		outline-offset: 3px;
+	}
+
+	.home-card a:focus-visible {
+		outline: none;
+	}
+
+	.home-card-icon {
+		display: inline-flex;
+		color: var(--tone);
+	}
+
+	.home-card-title {
+		margin: 0.25rem 0 0;
+		font-size: var(--sl-text-xl);
+		font-weight: 700;
+		line-height: var(--sl-line-height-headings);
+	}
+
+	.home-card-title a {
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+
+	/* Stretch the title link over the card so the whole card can be clicked. */
+	.home-card-title a::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+	}
+
+	.home-card-body {
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-sm);
+		line-height: 1.6;
+	}
+
+	/* MDX wraps the description in a <p>; the card already spaces it. */
+	.home-card-body :global(p) {
+		margin: 0;
+	}
+
+	.home-card-body :global(code) {
+		padding: 0.1em 0.35em;
+		border-radius: 0.3em;
+		background-color: color-mix(in oklab, var(--tone) 14%, transparent);
+		color: var(--sl-color-gray-2);
+		font-size: 0.9em;
+	}
+
+	.home-card :global(.home-card-arrow) {
+		position: absolute;
+		inset-block-start: 1.5rem;
+		inset-inline-end: 1.5rem;
+		color: var(--sl-color-gray-4);
+		transition: color 150ms ease-out;
+	}
+
+	.home-card:hover :global(.home-card-arrow) {
+		color: var(--tone);
+	}
+
+	@media (forced-colors: active) {
+		.home-card:has(a:focus-visible) {
+			outline-color: Highlight;
+		}
+	}
+</style>
