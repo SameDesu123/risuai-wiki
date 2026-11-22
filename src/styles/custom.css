@@ -121,6 +121,12 @@
 	}
 }
 
+/* Header logo: about as tall as the title text, instead of the full height Starlight gives it. In em
+   so it follows the title's font size, which is smaller on narrow screens. */
+.site-title img {
+	height: 1.2em;
+}
+
 /* Home page (the only page with a hero). */
 :root[data-has-hero] .hero h1 {
 	font-weight: 700;
