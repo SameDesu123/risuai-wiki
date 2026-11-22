@@ -1,7 +1,6 @@
 /* Palette: mint as the accent over grays tinted toward navy, with violet and coral as solid
    highlight colors (CBS syntax colors, home page card icons). No gradients or glows: color comes
-   from flat fills and borders only. Deliberately different from the official Risuai branding so
-   the two are not confused.
+   from flat fills and borders only.
    Every text color here meets 4.5:1 against the backgrounds it is used on (body, muted, links,
    highlight colors), in both themes. Check again if you change a value. */
 :root,
@@ -259,6 +258,7 @@
 		margin-inline: auto;
 	}
 }
+
 /* Below 72rem, pages with a table of contents have the toggle in the "On this page" bar instead of
    the header. Make room for it at the bar's start, keep the bar above the dimmed page while the
    overlay is open, and open the sidebar below the bar so the toggle stays visible. */
@@ -277,7 +277,6 @@
 		inset-block-start: calc(var(--sl-nav-height) + var(--sl-mobile-toc-height));
 	}
 }
-
 
 @media (min-width: 75rem) {
 	:root[data-sidebar-collapsed] {

@@ -14,11 +14,11 @@ export default defineConfig({
     },
     integrations: [
         starlight({
-            title: 'Risuai Unofficial Wiki',
+            title: 'Risu Wiki',
             description: 'Unofficial, community-written documentation for Risuai.',
-            favicon: '/favicon.svg',
-            // Same artwork as public/favicon.svg; keep the two in sync.
-            logo: { src: './src/assets/logo.svg' },
+            // Risuai's app icon, from public/logo_192.png and public/logo_256.png in the Risuai repository.
+            favicon: '/favicon.png',
+            logo: { src: './src/assets/risu-logo.png' },
             social: [{ icon: 'github', label: 'GitHub', href: `https://github.com/${GITHUB_REPO}` }],
             editLink: { baseUrl: `https://github.com/${GITHUB_REPO}/edit/main/` },
             lastUpdated: true,

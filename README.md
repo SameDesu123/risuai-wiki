@@ -1,4 +1,4 @@
-# Risuai Unofficial Wiki
+# Risu Wiki
 
 An unofficial documentation site for [Risuai](https://github.com/kwaroran/Risuai). It has no affiliation with the Risuai developers, and its content may be wrong. Each page notes which Risuai version it was checked against (`verifiedVersion`).
 
