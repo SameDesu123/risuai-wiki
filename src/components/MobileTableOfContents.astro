@@ -1,0 +1,11 @@
+---
+// Starlight's "On this page" bar, with the sidebar button added at its start (see SidebarToggle.astro).
+// Starlight renders this only on pages with a table of contents and hides it from 72rem.
+import Default from '@astrojs/starlight/components/MobileTableOfContents.astro';
+import SidebarToggle from './SidebarToggle.astro';
+
+const { hasSidebar } = Astro.locals.starlightRoute;
+---
+
+{hasSidebar && <SidebarToggle placement="toc" class="sl-hidden md:sl-flex" />}
+<Default />

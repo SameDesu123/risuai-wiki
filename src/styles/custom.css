@@ -227,7 +227,7 @@
 	white-space: nowrap;
 }
 
-/* Sidebar toggle (see src/components/Header.astro).
+/* Sidebar toggle (see src/components/SidebarToggle.astro).
    Below 50rem Starlight's own full-screen menu is used and nothing here applies.
    50rem to 75rem: the sidebar is hidden and opens as an overlay above the text.
    75rem and wider: the sidebar sits beside the text and can be collapsed. */
@@ -246,7 +246,7 @@
 		box-shadow: var(--sl-shadow-lg);
 	}
 
-	/* Dims the page behind the open overlay; the header stays above it so the toggle can close it. */
+	/* Dims the page behind the open overlay; the header stays above it so its toggle can close it. */
 	:root[data-sidebar-overlay-open] .main-frame::after {
 		content: '';
 		position: fixed;
@@ -259,6 +259,25 @@
 		margin-inline: auto;
 	}
 }
+/* Below 72rem, pages with a table of contents have the toggle in the "On this page" bar instead of
+   the header. Make room for it at the bar's start, keep the bar above the dimmed page while the
+   overlay is open, and open the sidebar below the bar so the toggle stays visible. */
+@media (min-width: 50rem) {
+	:root[data-has-sidebar] #starlight__mobile-toc > summary {
+		padding-inline-start: calc(1rem + 2.125rem + 0.5rem);
+	}
+}
+
+@media (min-width: 50rem) and (max-width: 71.99rem) {
+	:root[data-has-toc][data-sidebar-overlay-open] mobile-starlight-toc nav {
+		z-index: calc(var(--sl-z-index-menu) + 2);
+	}
+
+	:root[data-has-toc][data-sidebar-overlay-open] .sidebar-pane {
+		inset-block-start: calc(var(--sl-nav-height) + var(--sl-mobile-toc-height));
+	}
+}
+
 
 @media (min-width: 75rem) {
 	:root[data-sidebar-collapsed] {
