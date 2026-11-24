@@ -23,6 +23,13 @@ export default defineConfig({
             editLink: { baseUrl: `https://github.com/${GITHUB_REPO}/edit/main/` },
             lastUpdated: true,
             customCss: ['./src/styles/custom.css'],
+            head: [
+                // Google Search Console ownership check for https://samedesu123.github.io/risuai-wiki/
+                {
+                    tag: 'meta',
+                    attrs: { name: 'google-site-verification', content: 'A8oMYD5whd59c1H96rmAAWRs-_LCMZ3f1cf4s7USa6M' },
+                },
+            ],
             components: {
                 MobileTableOfContents: './src/components/MobileTableOfContents.astro',
                 PageTitle: './src/components/PageTitle.astro',
