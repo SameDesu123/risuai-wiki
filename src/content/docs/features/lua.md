@@ -1,6 +1,6 @@
 ---
 title: Lua scripting
-description: Event hooks, callable functions, asynchronous operations, and practical examples for Lua trigger scripts.
+description: "Lua trigger scripts in Risuai: event hooks, callable functions, asynchronous operations, and practical examples."
 verifiedVersion: "2026.10.295"
 ---
 

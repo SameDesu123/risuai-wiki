@@ -1,6 +1,6 @@
 ---
 title: Lorebook
-description: Add context with lorebook entries, control keyword matching and token budgets, and place entries with decorators.
+description: Add context with Risuai lorebook entries, control keyword matching and token budgets, and place entries with decorators.
 verifiedVersion: "2026.10.295"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Character cards
-description: Import and export character cards, choose V2 or V3 formats including CharX, and understand which data is preserved.
+description: Import and export Risuai character cards, choose V2 or V3 formats including CharX, and understand which data is preserved.
 verifiedVersion: "2026.10.295"
 ---
 

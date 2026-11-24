@@ -1,6 +1,6 @@
 ---
 title: Trigger scripts
-description: Run conditional actions with visual triggers or Lua, choose when they fire, and understand Low Level Access.
+description: Run conditional actions with Risuai triggers, visual or Lua, choose when they fire, and understand Low Level Access.
 verifiedVersion: "2026.10.295"
 ---
 

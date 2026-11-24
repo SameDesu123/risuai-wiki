@@ -1,6 +1,6 @@
 ---
 title: Assets and emotion images
-description: Add character media, display named assets and emotion images, and attach or generate inlay images in chat.
+description: Add character media in Risuai, display named assets and emotion images, and attach or generate inlay images in chat.
 verifiedVersion: "2026.10.295"
 ---
 

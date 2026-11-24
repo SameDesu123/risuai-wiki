@@ -1,6 +1,6 @@
 ---
 title: Contributing
-description: How to fix a page on this wiki or write a new one, and how the CBS reference is maintained.
+description: How to fix a page on this unofficial Risuai wiki or write a new one, and how the CBS reference is maintained.
 ---
 
 Anyone can edit this wiki. Even fixing a single typo is a big help.
@@ -41,6 +41,8 @@ verifiedVersion: "2026.10.295"
 ```
 
 The latest version is in [`version.json`](https://github.com/kwaroran/Risuai/blob/main/version.json) in the Risuai repository. If you recheck a page that lists an older version, bump the version too.
+
+The `description` is what search engines and link previews show for the page. Write one sentence of about 160 characters or fewer, and include the word "Risuai", since that is what people search for (for example, "Add context with Risuai lorebook entries, …").
 
 ## CBS reference
 

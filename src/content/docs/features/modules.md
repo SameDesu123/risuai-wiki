@@ -1,6 +1,6 @@
 ---
 title: Modules
-description: Bundle lorebooks, scripts, and assets in modules, import or export them, and enable them for a chat, character, or all chats.
+description: Bundle lorebooks, scripts, and assets in Risuai modules, import or export them, and enable them for a chat, character, or all chats.
 verifiedVersion: "2026.10.295"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Plugins
-description: Import plugins, manage their settings and updates, and understand their permissions and security limits.
+description: Import Risuai plugins, manage their settings and updates, and understand their permissions and security limits.
 verifiedVersion: "2026.10.295"
 ---
 

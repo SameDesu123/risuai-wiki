@@ -1,6 +1,6 @@
 ---
 title: Prompt template
-description: Use bot presets and prompt items to control which context is sent to the AI and where it is placed.
+description: Use Risuai bot presets and prompt items to control which context is sent to the AI and where it is placed.
 verifiedVersion: "2026.10.295"
 ---
 

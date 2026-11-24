@@ -1,6 +1,6 @@
 ---
 title: Group chats
-description: Create a conversation with several characters, choose who replies, and understand which settings apply.
+description: Create a Risuai group chat with several characters, choose who replies, and understand which settings apply.
 verifiedVersion: "2026.10.295"
 ---
 

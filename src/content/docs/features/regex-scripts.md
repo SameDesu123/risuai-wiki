@@ -1,6 +1,6 @@
 ---
 title: Regex scripts
-description: Choose when regex scripts run, write replacements with capture groups and CBS, and control their scope and order.
+description: Choose when Risuai regex scripts run, write replacements with capture groups and CBS, and control their scope and order.
 verifiedVersion: "2026.10.295"
 ---
 

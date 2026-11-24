@@ -1,6 +1,6 @@
 ---
 title: Personas
-description: Set up your name, picture, and persona prompt, switch personas, and bind one to a chat.
+description: Set up your Risuai persona (name, picture, and persona prompt), switch personas, and bind one to a chat.
 verifiedVersion: "2026.10.295"
 ---
 

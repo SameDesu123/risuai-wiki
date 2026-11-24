@@ -1,6 +1,6 @@
 ---
 title: Long-term memory
-description: Choose a long-term memory system, control its context budget, and understand summarization and embedding costs.
+description: Choose a long-term memory system in Risuai, control its context budget, and understand summarization and embedding costs.
 verifiedVersion: "2026.10.295"
 ---
 
