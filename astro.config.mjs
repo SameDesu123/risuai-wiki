@@ -5,6 +5,9 @@ import starlight from '@astrojs/starlight';
 import { BASE, GITHUB_REPO, SITE } from './site.config.mjs';
 import { baseLinks } from './src/plugins/base-links.mjs';
 
+// Crawlers need an absolute URL for og:image.
+const OG_IMAGE = new URL(`${BASE.replace(/\/?$/, '/')}og-image.png`, SITE).href;
+
 export default defineConfig({
     site: SITE,
     base: BASE,
@@ -29,6 +32,12 @@ export default defineConfig({
                     tag: 'meta',
                     attrs: { name: 'google-site-verification', content: 'A8oMYD5whd59c1H96rmAAWRs-_LCMZ3f1cf4s7USa6M' },
                 },
+                // Preview image for shared links. Its source is scripts/og-image/og-image.html.
+                { tag: 'meta', attrs: { property: 'og:image', content: OG_IMAGE } },
+                { tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } },
+                { tag: 'meta', attrs: { property: 'og:image:height', content: '630' } },
+                { tag: 'meta', attrs: { property: 'og:image:alt', content: 'Risu Wiki: unofficial, community-written documentation for Risuai' } },
+                { tag: 'meta', attrs: { name: 'twitter:image', content: OG_IMAGE } },
             ],
             components: {
                 MobileTableOfContents: './src/components/MobileTableOfContents.astro',
